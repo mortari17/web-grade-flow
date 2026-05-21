@@ -44,7 +44,7 @@ export function GradeResult({ result, targetGrade, onReset }: GradeResultProps) 
               >
                 {result.hasPassedTheGrade ? 'Aprovado!' : 'Não passou'}
               </p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground text-neutral-800">
                 Média necessária: {targetGrade.toFixed(1)}
               </p>
             </div>
@@ -53,7 +53,7 @@ export function GradeResult({ result, targetGrade, onReset }: GradeResultProps) 
         </div>
 
         <div className="flex items-baseline justify-center gap-2 py-3">
-          <span className="text-sm text-muted-foreground">Média final:</span>
+          <span className="text-sm text-muted-foreground text-neutral-800">Média final:</span>
           <span
             className={cn(
               'text-4xl font-black tracking-tight',

@@ -15,6 +15,7 @@ import { GradeResult } from './GradeResult'
 import { calculateGrade } from '@/lib/grade-calculator'
 import { GradeResponse } from '@/lib/types'
 import { GraduationCap } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 type Period = 'semester' | 'year'
 
@@ -122,7 +123,7 @@ export function GradeCalculator() {
 
   if (result) {
     return (
-      <Card className="border-t-4 border-t-primary shadow-lg">
+      <Card className="border-t-4 border-t-primary shadow-lg bg-neutral-900">
         <CardHeader>
           <div className="flex items-center gap-2 mb-1">
             <GraduationCap className="h-4 w-4 text-primary" />
@@ -130,7 +131,7 @@ export function GradeCalculator() {
               FIAP · Resultado
             </span>
           </div>
-          <CardTitle className="text-xl">Resultado do Cálculo</CardTitle>
+          <CardTitle className="text-xl text-primary">Resultado do Cálculo</CardTitle>
           <CardDescription>
             {period === 'semester' ? 'Cálculo por semestre' : 'Cálculo por ano'}
           </CardDescription>
@@ -160,17 +161,19 @@ export function GradeCalculator() {
       <CardContent className="space-y-6">
         <div className="space-y-1">
           <Label>
-            <div className='text-primary'>
-                Período
-                </div>
-                </Label>
+            <div className="text-primary">Período</div>
+          </Label>
           <Select value={period} onValueChange={(v: Period) => setPeriod(v)}>
-            <SelectTrigger className="focus:ring-primary">
-              <SelectValue />
+            <SelectTrigger className="bg-neutral-800 border border-neutral-700 text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary">
+              <SelectValue placeholder="Selecione o período" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="semester">Semestre</SelectItem>
-              <SelectItem value="year">Ano</SelectItem>
+            <SelectContent className="bg-neutral-800 border border-neutral-700 rounded-lg">
+              <SelectItem value="semester" className="text-white hover:bg-neutral-700">
+                Semestre
+              </SelectItem>
+              <SelectItem value="year" className="text-white hover:bg-neutral-700">
+                Ano
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -195,9 +198,7 @@ export function GradeCalculator() {
 
         <div className="space-y-1">
           <Label htmlFor="target">
-            <span className='text-primary'>
-            Nota alvo
-            </span>
+            <span className="text-primary">Nota alvo</span>
             <span className="text-muted-foreground font-normal text-neutral-500">(opcional)</span>
           </Label>
           <Input
@@ -209,7 +210,10 @@ export function GradeCalculator() {
             value={targetGrade}
             onChange={(e) => setTargetGrade(e.target.value)}
             placeholder="6.0 (padrão FIAP)"
-            className={`focus-visible:ring-primary ${errors.target ? 'border-destructive' : ''}`}
+            className={cn(
+              'bg-neutral-800 border-neutral-700 text-white placeholder-neutral-500',
+              '[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]',
+            )}
           />
           {errors.target && <p className="text-xs text-destructive">{errors.target}</p>}
           <p className="text-xs text-muted-foreground text-neutral-500">
@@ -227,7 +231,7 @@ export function GradeCalculator() {
           <Button
             variant="outline"
             onClick={handleReset}
-            className="border-black/20 dark:border-white/20"
+            className="border-black/20 dark:border-white/20 text-white bg-neutral-700"
           >
             Limpar
           </Button>

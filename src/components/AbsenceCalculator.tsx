@@ -56,10 +56,8 @@ export function AbsenceCalculator() {
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1">
             <Label htmlFor="absences">
-              <span className='text-primary'>
-              Faltas
-              </span>
-              </Label>
+              <span className="text-primary">Faltas</span>
+            </Label>
             <Input
               id="absences"
               type="number"
@@ -67,14 +65,17 @@ export function AbsenceCalculator() {
               value={absences}
               onChange={(e) => setAbsences(e.target.value)}
               placeholder="0"
-              className={cn(errors.absences && 'border-destructive', 'focus-visible:ring-primary')}
+              className={cn(
+                'bg-neutral-800 border-neutral-700 text-white placeholder-neutral-500',
+                '[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]',
+              )}
             />
             {errors.absences && <p className="text-xs text-destructive">{errors.absences}</p>}
           </div>
           <div className="space-y-1">
-            <Label htmlFor="classes"><span className='text-primary'>
-              Total de Aulas
-              </span></Label>
+            <Label htmlFor="classes">
+              <span className="text-primary">Total de Aulas</span>
+            </Label>
             <Input
               id="classes"
               type="number"
@@ -82,7 +83,10 @@ export function AbsenceCalculator() {
               value={classes}
               onChange={(e) => setClasses(e.target.value)}
               placeholder="20"
-              className={cn(errors.classes && 'border-destructive', 'focus-visible:ring-primary')}
+              className={cn(
+                'bg-neutral-800 border-neutral-700 text-white placeholder-neutral-500',
+                '[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]',
+              )}
             />
             {errors.classes && <p className="text-xs text-destructive">{errors.classes}</p>}
           </div>
@@ -98,7 +102,7 @@ export function AbsenceCalculator() {
           <Button
             variant="outline"
             onClick={handleReset}
-            className="border-black/20 dark:border-white/20"
+            className="border-black/20 dark:border-white/20 text-white bg-neutral-700"
           >
             Limpar
           </Button>
