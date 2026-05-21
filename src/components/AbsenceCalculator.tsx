@@ -39,7 +39,7 @@ export function AbsenceCalculator() {
   }
 
   return (
-    <Card className="border-t-4 border-t-primary shadow-lg">
+    <Card className="border-t-4 border-t-primary shadow-lg bg-neutral-900">
       <CardHeader>
         <div className="flex items-center gap-2 mb-1">
           <CalendarCheck className="h-4 w-4 text-primary" />
@@ -47,7 +47,7 @@ export function AbsenceCalculator() {
             FIAP · Faltas
           </span>
         </div>
-        <CardTitle className="text-xl">Calculadora de Faltas</CardTitle>
+        <CardTitle className="text-xl text-primary">Calculadora de Faltas</CardTitle>
         <CardDescription>
           Calcule quantas faltas ainda pode ter sem estourar o limite de 25%
         </CardDescription>
@@ -55,7 +55,11 @@ export function AbsenceCalculator() {
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1">
-            <Label htmlFor="absences">Faltas</Label>
+            <Label htmlFor="absences">
+              <span className='text-primary'>
+              Faltas
+              </span>
+              </Label>
             <Input
               id="absences"
               type="number"
@@ -68,7 +72,9 @@ export function AbsenceCalculator() {
             {errors.absences && <p className="text-xs text-destructive">{errors.absences}</p>}
           </div>
           <div className="space-y-1">
-            <Label htmlFor="classes">Total de Aulas</Label>
+            <Label htmlFor="classes"><span className='text-primary'>
+              Total de Aulas
+              </span></Label>
             <Input
               id="classes"
               type="number"

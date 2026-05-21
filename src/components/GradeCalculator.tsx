@@ -147,7 +147,7 @@ export function GradeCalculator() {
   }
 
   return (
-    <Card className="border-t-4 border-t-primary shadow-lg">
+    <Card className="border-t-4 border-t-primary shadow-lg bg-neutral-900">
       <CardHeader>
         <div className="flex items-center gap-2 mb-1">
           <GraduationCap className="h-4 w-4 text-primary" />
@@ -155,11 +155,15 @@ export function GradeCalculator() {
             FIAP · Notas
           </span>
         </div>
-        <CardTitle className="text-xl">Calculadora de Notas</CardTitle>
+        <CardTitle className="text-xl text-primary">Calculadora de Notas</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-1">
-          <Label>Período</Label>
+          <Label>
+            <div className='text-primary'>
+                Período
+                </div>
+                </Label>
           <Select value={period} onValueChange={(v: Period) => setPeriod(v)}>
             <SelectTrigger className="focus:ring-primary">
               <SelectValue />
@@ -191,7 +195,10 @@ export function GradeCalculator() {
 
         <div className="space-y-1">
           <Label htmlFor="target">
-            Nota alvo <span className="text-muted-foreground font-normal">(opcional)</span>
+            <span className='text-primary'>
+            Nota alvo
+            </span>
+            <span className="text-muted-foreground font-normal text-neutral-500">(opcional)</span>
           </Label>
           <Input
             id="target"
@@ -205,7 +212,7 @@ export function GradeCalculator() {
             className={`focus-visible:ring-primary ${errors.target ? 'border-destructive' : ''}`}
           />
           {errors.target && <p className="text-xs text-destructive">{errors.target}</p>}
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground text-neutral-500">
             Deixe em branco para usar a média mínima FIAP (6.0), ou informe uma nota específica
           </p>
         </div>

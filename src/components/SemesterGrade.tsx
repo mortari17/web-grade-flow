@@ -13,9 +13,9 @@ export function SemesterGrades({ title, grades, onChange, errors }: SemesterGrad
     <div className="space-y-3">
       <div className="space-y-1">
         <div className="h-0.5 w-12 rounded-full bg-primary" />
-        <h4 className="text-sm font-bold text-foreground">{title}</h4>
+        <h4 className="text-sm font-bold text-foreground text-primary">{title}</h4>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-primary">
         <GradeInput
           label={`CP1`}
           value={grades.cp1}

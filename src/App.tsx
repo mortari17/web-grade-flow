@@ -5,8 +5,8 @@ import { GraduationCap, CalendarCheck } from 'lucide-react'
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-accent/30 to-white dark:from-black dark:via-accent/10 dark:to-black">
-      <header className="border-b border-border bg-black text-white">
+    <div className="min-h-screen bg-neutral-950 dark:from-black dark:via-accent/10 dark:to-black">
+      <header className="border-b border-border border-neutral-800 bg-black text-white">
         <div className="container max-w-3xl mx-auto flex items-center gap-3 py-4 px-4">
           <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary shadow-lg shadow-primary/30">
             <GraduationCap className="h-6 w-6 text-white" />
@@ -25,8 +25,8 @@ export default function App() {
 
       <main className="container max-w-3xl mx-auto py-8 px-4">
         <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
-            Sua <span className="text-primary">média</span> na palma da mão
+          <h2 className="text-2xl sm:text-3xl text-primary font-bold tracking-tight">
+            Sua média na palma da mão
           </h2>
           <p className="text-sm text-muted-foreground mt-1">
             Calcule notas e faltas seguindo o modelo de avaliação FIAP
@@ -37,14 +37,14 @@ export default function App() {
           <TabsList className="grid w-full grid-cols-2 mb-8 bg-black/5 dark:bg-white/5">
             <TabsTrigger
               value="grades"
-              className="flex items-center gap-2 data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:rounded-none data-[state=active]:bg-transparent"
+              className="flex items-center gap-2 data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:bg-neutral-900 data-[state=active]:rounded-sm"
             >
               <GraduationCap className="h-4 w-4" />
               Notas
             </TabsTrigger>
             <TabsTrigger
               value="absences"
-              className="flex items-center gap-2 data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:rounded-none data-[state=active]:bg-transparent"
+              className="flex items-center gap-2 data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:bg-neutral-900 data-[state=active]:rounded-sm"
             >
               <CalendarCheck className="h-4 w-4" />
               Faltas
@@ -59,7 +59,7 @@ export default function App() {
         </Tabs>
       </main>
 
-      <footer className="border-t border-border bg-black text-gray-500 mt-12">
+      <footer className="border-t border-border border-neutral-800 bg-black text-gray-500 mt-12">
         <div className="container max-w-3xl mx-auto py-6 px-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
             <div className="flex items-center gap-2 text-xs">
