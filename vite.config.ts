@@ -4,6 +4,7 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
+  base: '/web-grade-flow/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

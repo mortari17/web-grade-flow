@@ -1,7 +1,7 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { AbsenceCalculator } from "@/components/AbsenceCalculator"
-import { GradeCalculator } from "@/components/GradeCalculator"
-import { GraduationCap, CalendarCheck } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { AbsenceCalculator } from '@/components/AbsenceCalculator'
+import { GradeCalculator } from '@/components/GradeCalculator'
+import { GraduationCap, CalendarCheck } from 'lucide-react'
 
 export default function App() {
   return (
@@ -35,11 +35,17 @@ export default function App() {
 
         <Tabs defaultValue="grades" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8 bg-black/5 dark:bg-white/5">
-            <TabsTrigger value="grades" className="flex items-center gap-2 data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:rounded-none data-[state=active]:bg-transparent">
+            <TabsTrigger
+              value="grades"
+              className="flex items-center gap-2 data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:rounded-none data-[state=active]:bg-transparent"
+            >
               <GraduationCap className="h-4 w-4" />
               Notas
             </TabsTrigger>
-            <TabsTrigger value="absences" className="flex items-center gap-2 data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:rounded-none data-[state=active]:bg-transparent">
+            <TabsTrigger
+              value="absences"
+              className="flex items-center gap-2 data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:rounded-none data-[state=active]:bg-transparent"
+            >
               <CalendarCheck className="h-4 w-4" />
               Faltas
             </TabsTrigger>

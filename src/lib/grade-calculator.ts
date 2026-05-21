@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Semester, GradeRequest, GradeResponse, AbsenceRequest, AbsenceResponse } from './types'
 
 const MAX_MISSING_PR = 0.25
@@ -37,12 +38,12 @@ function normalizeMissingGrades(s: Semester, validator: Record<string, boolean>)
   const fields: Array<keyof Semester> = ['cp1', 'cp2', 'sprint1', 'sprint2', 'gs']
   for (const field of fields) {
     if (!validator[field]) {
-      (s as any)[field] = ZERO
+      ;(s as any)[field] = ZERO
     }
   }
 }
 
-function calculateSemesterGrade(data: Semester, target: number): GradeResponse {
+export function calculateSemesterGrade(data: Semester, target: number): GradeResponse {
   const validator = validateGrades(data)
   normalizeMissingGrades(data, validator)
 
@@ -50,7 +51,7 @@ function calculateSemesterGrade(data: Semester, target: number): GradeResponse {
     (data.cp1! + data.cp2! + data.sprint1! + data.sprint2!) / NUMBER_OF_SEMESTER_GRADES
 
   const cpsContribution = semesterCpsAndSprints * CPS_AND_SPRINTS_WEIGHT
-  const finalGrade = cpsContribution + (data.gs! * GS_WEIGHT)
+  const finalGrade = cpsContribution + data.gs! * GS_WEIGHT
   const rounded = round2(finalGrade)
 
   let requiredGs: number | undefined
@@ -66,16 +67,14 @@ function calculateSemesterGrade(data: Semester, target: number): GradeResponse {
   }
 }
 
-function calculateYearGrade(data: GradeRequest, target: number): GradeResponse {
+export function calculateYearGrade(data: GradeRequest, target: number): GradeResponse {
   const validator = validateGrades(data.secondSemester!)
   const hasGs = validator.gs
 
   const first = calculateSemesterGrade(data.firstSemester, target)
   const second = calculateSemesterGrade(data.secondSemester!, target)
 
-  const yearFinal =
-    first.average * FIRST_SEMESTER_WEIGHT +
-    second.average * SECOND_SEMESTER_WEIGHT
+  const yearFinal = first.average * FIRST_SEMESTER_WEIGHT + second.average * SECOND_SEMESTER_WEIGHT
 
   const rounded = round2(yearFinal)
 
@@ -85,14 +84,13 @@ function calculateYearGrade(data: GradeRequest, target: number): GradeResponse {
       (data.secondSemester!.cp1! +
         data.secondSemester!.cp2! +
         data.secondSemester!.sprint1! +
-        data.secondSemester!.sprint2!) / NUMBER_OF_SEMESTER_GRADES
+        data.secondSemester!.sprint2!) /
+      NUMBER_OF_SEMESTER_GRADES
 
     const cpsContribution = semesterCps * CPS_AND_SPRINTS_WEIGHT
 
     const numerator =
-      target -
-      first.average * FIRST_SEMESTER_WEIGHT -
-      cpsContribution * SECOND_SEMESTER_WEIGHT
+      target - first.average * FIRST_SEMESTER_WEIGHT - cpsContribution * SECOND_SEMESTER_WEIGHT
 
     const denominator = GS_WEIGHT * SECOND_SEMESTER_WEIGHT
 

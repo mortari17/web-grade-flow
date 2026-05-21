@@ -1,6 +1,6 @@
-import { GradeResponse } from "@/lib/types"
-import { CheckCircle2, AlertCircle, Target, GraduationCap } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { GradeResponse } from '@/lib/types'
+import { CheckCircle2, AlertCircle, Target, GraduationCap } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface GradeResultProps {
   result: GradeResponse
@@ -11,20 +11,24 @@ interface GradeResultProps {
 export function GradeResult({ result, targetGrade, onReset }: GradeResultProps) {
   return (
     <div className="space-y-4">
-      <div className={cn(
-        "rounded-lg border-2 p-5 space-y-4",
-        result.hasPassedTheGrade
-          ? "border-green-200 bg-green-50/50 dark:bg-green-950/10"
-          : "border-red-200 bg-red-50/50 dark:bg-red-950/10"
-      )}>
+      <div
+        className={cn(
+          'rounded-lg border-2 p-5 space-y-4',
+          result.hasPassedTheGrade
+            ? 'border-green-200 bg-green-50/50 dark:bg-green-950/10'
+            : 'border-red-200 bg-red-50/50 dark:bg-red-950/10',
+        )}
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className={cn(
-              "flex items-center justify-center w-10 h-10 rounded-full",
-              result.hasPassedTheGrade
-                ? "bg-green-100 dark:bg-green-900/30"
-                : "bg-red-100 dark:bg-red-900/30"
-            )}>
+            <div
+              className={cn(
+                'flex items-center justify-center w-10 h-10 rounded-full',
+                result.hasPassedTheGrade
+                  ? 'bg-green-100 dark:bg-green-900/30'
+                  : 'bg-red-100 dark:bg-red-900/30',
+              )}
+            >
               {result.hasPassedTheGrade ? (
                 <CheckCircle2 className="h-6 w-6 text-green-600" />
               ) : (
@@ -32,28 +36,30 @@ export function GradeResult({ result, targetGrade, onReset }: GradeResultProps) 
               )}
             </div>
             <div>
-              <p className={cn(
-                "text-lg font-bold",
-                result.hasPassedTheGrade ? "text-green-700" : "text-red-700"
-              )}>
-                {result.hasPassedTheGrade ? "Aprovado!" : "Não passou"}
+              <p
+                className={cn(
+                  'text-lg font-bold',
+                  result.hasPassedTheGrade ? 'text-green-700' : 'text-red-700',
+                )}
+              >
+                {result.hasPassedTheGrade ? 'Aprovado!' : 'Não passou'}
               </p>
               <p className="text-xs text-muted-foreground">
                 Média necessária: {targetGrade.toFixed(1)}
               </p>
             </div>
           </div>
-          {result.hasPassedTheGrade && (
-            <span className="text-2xl">🎉</span>
-          )}
+          {result.hasPassedTheGrade && <span className="text-2xl">🎉</span>}
         </div>
 
         <div className="flex items-baseline justify-center gap-2 py-3">
           <span className="text-sm text-muted-foreground">Média final:</span>
-          <span className={cn(
-            "text-4xl font-black tracking-tight",
-            result.hasPassedTheGrade ? "text-green-600" : "text-red-600"
-          )}>
+          <span
+            className={cn(
+              'text-4xl font-black tracking-tight',
+              result.hasPassedTheGrade ? 'text-green-600' : 'text-red-600',
+            )}
+          >
             {result.average.toFixed(2)}
           </span>
         </div>
@@ -70,9 +76,9 @@ export function GradeResult({ result, targetGrade, onReset }: GradeResultProps) 
                 </span>
               </div>
               <p className="text-sm">
-                Você precisa tirar{" "}
-                <strong className="text-magenta-600 text-lg">{result.requiredGs.toFixed(2)}</strong>
-                {" "}na GS para atingir a média <strong>{targetGrade.toFixed(1)}</strong>.
+                Você precisa tirar{' '}
+                <strong className="text-magenta-600 text-lg">{result.requiredGs.toFixed(2)}</strong>{' '}
+                na GS para atingir a média <strong>{targetGrade.toFixed(1)}</strong>.
               </p>
             </div>
           </div>
