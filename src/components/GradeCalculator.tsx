@@ -174,12 +174,13 @@ export function GradeCalculator() {
             FIAP · Notas
           </span>
         </div>
-        <CardTitle className="text-xl text-primary">Calculadora de Notas</CardTitle>
+        <CardTitle className="text-xl text-neutral-300">Calculadora de Notas</CardTitle>
+        <CardDescription>Calcule sua média ou quanto precisa tirar para passar</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-1">
           <Label>
-            <div className="text-primary">Período</div>
+            <div className="text-neutral-300">Período</div>
           </Label>
           <Select value={period} onValueChange={(v: Period) => setPeriod(v)}>
             <SelectTrigger className="bg-neutral-800 border border-neutral-700 text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary">
@@ -218,8 +219,10 @@ export function GradeCalculator() {
 
         <div className="space-y-1">
           <Label htmlFor="target">
-            <span className="text-primary">Nota alvo</span>
-            <span className="text-muted-foreground font-normal text-neutral-500">(opcional)</span>
+            <div className="flex gap-1">
+              <span className="text-neutral-300">Nota alvo</span>
+              <span className="text-muted-foreground font-normal text-neutral-500">(opcional)</span>
+            </div>
           </Label>
           <Input
             id="target"

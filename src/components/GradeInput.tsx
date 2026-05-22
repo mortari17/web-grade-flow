@@ -39,7 +39,7 @@ export function GradeInput({
 
   return (
     <div className="space-y-1">
-      <Label htmlFor={label}>{<span className="text-primary">{label}</span>}</Label>
+      <Label htmlFor={label}>{<span className="text-neutral-300">{label}</span>}</Label>
       <Input
         id={label}
         type="text"
@@ -53,9 +53,7 @@ export function GradeInput({
           error && 'border-destructive focus-visible:ring-destructive',
         )}
       />
-      {description && (
-        <p className="text-xs text-muted-foreground text-neutral-500">{description}</p>
-      )}
+      {description && <p className="text-xs text-muted-foreground text-primary">{description}</p>}
       {error && <p className="text-xs text-destructive">{error}</p>}
     </div>
   )

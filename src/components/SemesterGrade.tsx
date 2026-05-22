@@ -22,7 +22,7 @@ export function SemesterGrades({
         <div className="h-0.5 w-12 rounded-full bg-primary" />
         <h4 className="text-sm font-bold text-foreground text-primary">{title}</h4>
       </div>
-      <div className="grid grid-cols-2 gap-3 text-primary">
+      <div className="grid grid-cols-2 gap-3 text-neutral-300">
         <GradeInput
           label={`CP1`}
           value={grades.cp1}

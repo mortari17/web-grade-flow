@@ -65,7 +65,7 @@ export function AbsenceCalculator() {
             FIAP · Faltas
           </span>
         </div>
-        <CardTitle className="text-xl text-primary">Calculadora de Faltas</CardTitle>
+        <CardTitle className="text-xl text-neutral-300">Calculadora de Faltas</CardTitle>
         <CardDescription>
           Calcule quantas faltas ainda pode ter sem estourar o limite de 25%
         </CardDescription>
@@ -74,7 +74,7 @@ export function AbsenceCalculator() {
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1">
             <Label htmlFor="absences">
-              <span className="text-primary">Faltas</span>
+              <span className="text-neutral-300">Faltas</span>
             </Label>
             <Input
               id="absences"
@@ -92,7 +92,7 @@ export function AbsenceCalculator() {
           </div>
           <div className="space-y-1">
             <Label htmlFor="classes">
-              <span className="text-primary">Total de Aulas</span>
+              <span className="text-neutral-300">Total de Aulas</span>
             </Label>
             <Select value={classes} onValueChange={setClasses}>
               <SelectTrigger className="bg-neutral-800 border border-neutral-700 text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary">

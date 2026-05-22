@@ -26,7 +26,7 @@ export default function App() {
       <main className="flex-1 container max-w-3xl mx-auto py-8 px-4 w-full">
         <div className="text-center mb-8">
           <h2 className="text-2xl sm:text-3xl text-primary font-bold tracking-tight">
-            Sua média na palma da mão
+            De quanto você precisa? Quantas vezes ainda pode faltar? GradeFlow sabe!
           </h2>
           <p className="text-sm text-muted-foreground mt-1">
             Calcule notas e faltas seguindo o modelo de avaliação FIAP
