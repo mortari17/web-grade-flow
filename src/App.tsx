@@ -67,7 +67,7 @@ export default function App() {
             <span className="text-sm font-medium">GradeFlow</span>
           </div>
           <p className="text-xs text-gray-400">
-            Desenvolvido por <span className="font-medium text-gray-300">Leonardo Mortari</span>
+            Desenvolvido por <span className="font-medium text-gray-300">Leonardo Mortari</span> e <span className="font-medium text-gray-300">João Castro</span>
           </p>
         </div>
       </footer>
