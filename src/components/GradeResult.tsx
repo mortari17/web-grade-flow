@@ -15,8 +15,8 @@ export function GradeResult({ result, targetGrade, onReset }: GradeResultProps) 
         className={cn(
           'rounded-lg border-2 p-5 space-y-4',
           result.hasPassedTheGrade
-            ? 'border-green-200 bg-green-50/50 dark:bg-green-950/10'
-            : 'border-red-200 bg-red-50/50 dark:bg-red-950/10',
+            ? 'border-neutral-600 bg-neutral-700'
+            : 'border-neutral-600 bg-neutral-700',
         )}
       >
         <div className="flex items-center justify-between">
@@ -24,40 +24,35 @@ export function GradeResult({ result, targetGrade, onReset }: GradeResultProps) 
             <div
               className={cn(
                 'flex items-center justify-center w-10 h-10 rounded-full',
-                result.hasPassedTheGrade
-                  ? 'bg-green-100 dark:bg-green-900/30'
-                  : 'bg-red-100 dark:bg-red-900/30',
+                result.hasPassedTheGrade ? 'bg-neutral-600' : 'bg-neutral-600',
               )}
             >
               {result.hasPassedTheGrade ? (
-                <CheckCircle2 className="h-6 w-6 text-green-600" />
+                <CheckCircle2 className="h-6 w-6 text-neutral-300 text-primary" />
               ) : (
-                <AlertCircle className="h-6 w-6 text-red-600" />
+                <AlertCircle className="h-6 w-6 text-neutral-300 text-primary" />
               )}
             </div>
             <div>
               <p
                 className={cn(
                   'text-lg font-bold',
-                  result.hasPassedTheGrade ? 'text-green-700' : 'text-red-700',
+                  result.hasPassedTheGrade ? 'text-green-500' : 'text-red-500',
                 )}
               >
                 {result.hasPassedTheGrade ? 'Aprovado!' : 'Não passou'}
               </p>
-              <p className="text-xs text-muted-foreground text-neutral-800">
-                Média necessária: {targetGrade.toFixed(1)}
-              </p>
+              <p className="text-xs text-neutral-300">Média necessária: {targetGrade.toFixed(1)}</p>
             </div>
           </div>
-          {result.hasPassedTheGrade && <span className="text-2xl">🎉</span>}
         </div>
 
         <div className="flex items-baseline justify-center gap-2 py-3">
-          <span className="text-sm text-muted-foreground text-neutral-800">Média final:</span>
+          <span className="text-sm text-neutral-300">Média final:</span>
           <span
             className={cn(
               'text-4xl font-black tracking-tight',
-              result.hasPassedTheGrade ? 'text-green-600' : 'text-red-600',
+              result.hasPassedTheGrade ? 'text-green-500' : 'text-red-500',
             )}
           >
             {result.average.toFixed(2)}
@@ -65,20 +60,20 @@ export function GradeResult({ result, targetGrade, onReset }: GradeResultProps) 
         </div>
 
         {result.requiredGs !== undefined && (
-          <div className="flex items-start gap-3 rounded-lg border border-magenta-300 bg-magenta-50 dark:bg-magenta-950/20 p-4">
-            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-magenta-100 shrink-0">
-              <Target className="h-4 w-4 text-magenta-600" />
+          <div className="flex items-start gap-3 rounded-lg border border-neutral-600 bg-neutral-700 p-4">
+            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-neutral-600 shrink-0">
+              <Target className="h-4 w-4 text-neutral-300" />
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-magenta-600">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-300">
                   GS Necessária
                 </span>
               </div>
-              <p className="text-sm">
+              <p className="text-sm text-neutral-300">
                 Você precisa tirar{' '}
-                <strong className="text-magenta-600 text-lg">{result.requiredGs.toFixed(2)}</strong>{' '}
-                na GS para atingir a média <strong>{targetGrade.toFixed(1)}</strong>.
+                <strong className="text-white text-lg">{result.requiredGs.toFixed(2)}</strong> na GS
+                para atingir a média <strong>{targetGrade.toFixed(1)}</strong>.
               </p>
             </div>
           </div>

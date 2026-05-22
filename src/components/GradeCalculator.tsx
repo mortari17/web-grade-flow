@@ -121,6 +121,24 @@ export function GradeCalculator() {
     setErrors({})
   }
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value
+
+    let filtered = raw.replace(/[^0-9.]/g, '')
+
+    if (filtered.startsWith('.')) {
+      filtered = filtered.slice(1)
+    }
+
+    if (filtered.includes('.')) {
+      filtered = filtered.slice(0, 3)
+    } else {
+      filtered = filtered.slice(0, 2)
+    }
+
+    setTargetGrade(filtered)
+  }
+
   if (result) {
     return (
       <Card className="border-t-4 border-t-primary shadow-lg bg-neutral-900">
@@ -184,6 +202,7 @@ export function GradeCalculator() {
           grades={firstSemester}
           onChange={handleFirstChange}
           errors={errors}
+          showGSDescription={period === 'semester'}
         />
 
         {period === 'year' && (
@@ -193,6 +212,7 @@ export function GradeCalculator() {
             grades={secondSemester}
             onChange={handleSecondChange}
             errors={errors}
+            showGSDescription={period === 'year'}
           />
         )}
 
@@ -208,7 +228,7 @@ export function GradeCalculator() {
             max={10}
             step={0.1}
             value={targetGrade}
-            onChange={(e) => setTargetGrade(e.target.value)}
+            onChange={(e) => handleChange(e)}
             placeholder="6.0 (padrão FIAP)"
             className={cn(
               'bg-neutral-800 border-neutral-700 text-white placeholder-neutral-500',

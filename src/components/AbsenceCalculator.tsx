@@ -3,23 +3,35 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { calculateAbsence } from '@/lib/grade-calculator'
 import { AlertCircle, CheckCircle2, CalendarCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function AbsenceCalculator() {
   const [absences, setAbsences] = useState('')
-  const [classes, setClasses] = useState('')
+  const [classes, setClasses] = useState('80')
   const [result, setResult] = useState<{ missingAbsences: number; isOk: boolean } | null>(null)
   const [errors, setErrors] = useState({ absences: '', classes: '' })
+
+  const handleAbsencesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 3)
+    setAbsences(value)
+  }
 
   function validate(): boolean {
     const newErrors = { absences: '', classes: '' }
     const a = Number(absences)
     const c = Number(classes)
 
-    if (!absences || a < 0) newErrors.absences = 'Digite um número válido (>= 0)'
-    if (!classes || c <= 0) newErrors.classes = 'Digite um número válido (> 0)'
+    if (!absences || a < 0) newErrors.absences = 'Digite um número inteiro maior do que 0'
+    if (!classes || c <= 0) newErrors.classes = 'Selecione um valor válido'
 
     setErrors(newErrors)
     return !newErrors.absences && !newErrors.classes
@@ -33,9 +45,15 @@ export function AbsenceCalculator() {
 
   function handleReset() {
     setAbsences('')
-    setClasses('')
+    setClasses('80')
     setResult(null)
     setErrors({ absences: '', classes: '' })
+  }
+
+  const calculateDays = (missingAbsences: number): number => {
+    if (classes === '80') return missingAbsences / 2
+    if (classes === '160') return missingAbsences / 4
+    return 0
   }
 
   return (
@@ -60,11 +78,11 @@ export function AbsenceCalculator() {
             </Label>
             <Input
               id="absences"
-              type="number"
-              min={0}
+              type="text"
               value={absences}
-              onChange={(e) => setAbsences(e.target.value)}
+              onChange={handleAbsencesChange}
               placeholder="0"
+              maxLength={3}
               className={cn(
                 'bg-neutral-800 border-neutral-700 text-white placeholder-neutral-500',
                 '[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]',
@@ -76,18 +94,19 @@ export function AbsenceCalculator() {
             <Label htmlFor="classes">
               <span className="text-primary">Total de Aulas</span>
             </Label>
-            <Input
-              id="classes"
-              type="number"
-              min={1}
-              value={classes}
-              onChange={(e) => setClasses(e.target.value)}
-              placeholder="20"
-              className={cn(
-                'bg-neutral-800 border-neutral-700 text-white placeholder-neutral-500',
-                '[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]',
-              )}
-            />
+            <Select value={classes} onValueChange={setClasses}>
+              <SelectTrigger className="bg-neutral-800 border border-neutral-700 text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary">
+                <SelectValue placeholder="Selecione" />
+              </SelectTrigger>
+              <SelectContent className="bg-neutral-800 border border-neutral-700 rounded-lg">
+                <SelectItem value="80" className="text-white hover:bg-neutral-600">
+                  80
+                </SelectItem>
+                <SelectItem value="160" className="text-white hover:bg-neutral-600">
+                  160
+                </SelectItem>
+              </SelectContent>
+            </Select>
             {errors.classes && <p className="text-xs text-destructive">{errors.classes}</p>}
           </div>
         </div>
@@ -111,28 +130,27 @@ export function AbsenceCalculator() {
         {result && (
           <div
             className={cn(
-              'rounded-lg border p-4 space-y-2',
-              result.isOk
-                ? 'border-green-200 bg-green-50 dark:bg-green-950/20'
-                : 'border-red-200 bg-red-50 dark:bg-red-950/20',
+              'rounded-lg border p-4 space-y-2 bg-neutral-700',
+              result.isOk ? 'border-neutral-600' : 'border-neutral-600',
             )}
           >
             <div className="flex items-center gap-2">
               {result.isOk ? (
-                <CheckCircle2 className="h-5 w-5 text-green-600" />
+                <CheckCircle2 className="h-5 w-5 text-green-400" />
               ) : (
-                <AlertCircle className="h-5 w-5 text-red-600" />
+                <AlertCircle className="h-5 w-5 text-red-400" />
               )}
-              <span className={cn('font-medium', result.isOk ? 'text-green-700' : 'text-red-700')}>
+              <span className={cn('font-medium', result.isOk ? 'text-green-400' : 'text-red-400')}>
                 {result.isOk ? 'Dentro do limite' : 'Limite excedido'}
               </span>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Você ainda pode faltar <strong>{result.missingAbsences}</strong> vez(es) sem reprovar.
+            <p className="text-sm text-neutral-300">
+              Você ainda pode faltar em <strong>{result.missingAbsences}</strong> aula(s).
             </p>
-            <p className="text-sm text-muted-foreground">
-              Isso significa que você pode faltar <strong>{result.missingAbsences / 2}</strong>{' '}
-              dia(s) sem reprovar.
+            <p className="text-sm text-neutral-300">
+              Isso significa que você pode faltar{' '}
+              <strong>{calculateDays(result.missingAbsences).toFixed(1)}</strong> dia(s) sem
+              reprovar.
             </p>
           </div>
         )}

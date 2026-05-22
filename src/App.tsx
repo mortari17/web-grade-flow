@@ -5,7 +5,7 @@ import { GraduationCap, CalendarCheck } from 'lucide-react'
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-neutral-950 dark:from-black dark:via-accent/10 dark:to-black">
+    <div className="flex flex-col min-h-screen bg-neutral-950">
       <header className="border-b border-border border-neutral-800 bg-black text-white">
         <div className="container max-w-3xl mx-auto flex items-center gap-3 py-4 px-4">
           <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary shadow-lg shadow-primary/30">
@@ -23,7 +23,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="container max-w-3xl mx-auto py-8 px-4">
+      <main className="flex-1 container max-w-3xl mx-auto py-8 px-4 w-full">
         <div className="text-center mb-8">
           <h2 className="text-2xl sm:text-3xl text-primary font-bold tracking-tight">
             Sua média na palma da mão
@@ -50,6 +50,7 @@ export default function App() {
               Faltas
             </TabsTrigger>
           </TabsList>
+
           <TabsContent value="grades">
             <GradeCalculator />
           </TabsContent>
@@ -59,18 +60,15 @@ export default function App() {
         </Tabs>
       </main>
 
-      <footer className="border-t border-border border-neutral-800 bg-black text-gray-500 mt-12">
-        <div className="container max-w-3xl mx-auto py-6 px-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
-            <div className="flex items-center gap-2 text-xs">
-              <GraduationCap className="h-4 w-4 text-primary" />
-              <span>GradeFlow</span>
-            </div>
-            <div className="flex items-center gap-3 text-[10px] uppercase tracking-wider">
-              <span className="text-gray-600">Desenvolvido por</span>
-              <span className="text-gray-400 font-medium">Leonardo Mortari</span>
-            </div>
+      <footer className="border-t border-neutral-800 bg-black text-gray-500">
+        <div className="container max-w-3xl mx-auto flex items-center justify-between py-6 px-4">
+          <div className="flex items-center gap-2">
+            <GraduationCap className="h-4 w-4 text-primary" />
+            <span className="text-sm font-medium">GradeFlow</span>
           </div>
+          <p className="text-xs text-gray-400">
+            Desenvolvido por <span className="font-medium text-gray-300">Leonardo Mortari</span>
+          </p>
         </div>
       </footer>
     </div>
