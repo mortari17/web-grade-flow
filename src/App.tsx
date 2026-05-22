@@ -8,8 +8,8 @@ export default function App() {
     <div className="flex flex-col min-h-screen bg-neutral-950">
       <header className="border-b border-border border-neutral-800 bg-black text-white">
         <div className="container max-w-3xl mx-auto flex items-center gap-3 py-4 px-4">
-          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary shadow-lg shadow-primary/30">
-            <GraduationCap className="h-6 w-6 text-white" />
+          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary">
+            <GraduationCap className="h-6 w-6 text-black" />
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-2">
@@ -61,7 +61,7 @@ export default function App() {
       </main>
 
       <footer className="border-t border-neutral-800 bg-black text-gray-500">
-        <div className="container max-w-3xl mx-auto flex items-center justify-between py-6 px-4">
+        <div className="container max-w-3xl mx-auto flex items-center justify-between py-6 px-4 sm:flex-row flex-col gap-4">
           <div className="flex items-center gap-2">
             <GraduationCap className="h-4 w-4 text-primary" />
             <span className="text-sm font-medium">GradeFlow</span>
