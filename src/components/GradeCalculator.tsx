@@ -16,6 +16,8 @@ import { calculateGrade } from '@/lib/grade-calculator'
 import { GradeResponse } from '@/lib/types'
 import { GraduationCap } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { handleChange } from '@/utils'
+import { UI_MESSAGES } from '@/utils/constants'
 
 type Period = 'semester' | 'year'
 
@@ -46,9 +48,23 @@ export function GradeCalculator() {
   }
 
   function validateGrade(val: string): boolean {
-    if (!val) return true
-    const n = Number(val)
-    return !isNaN(n) && n >= 0.01 && n <= 10.0
+    const trimmed = val.trim()
+
+  const commaPattern = /^\d{1,2}(?:,\d{1,2})?$/
+  const dotPattern = /^\d{1,2}(?:\.\d{1,2})?$/
+
+  let normalized: string
+  if (commaPattern.test(trimmed)) {
+    normalized = trimmed.replace(',', '.')
+  } else if (dotPattern.test(trimmed)) {
+    normalized = trimmed
+  } else {
+    return true
+  }
+
+  
+    const num = Number(normalized)
+    return !isNaN(num) && num >= 0.01 && num <= 10.0
   }
 
   function validate(): boolean {
@@ -57,7 +73,7 @@ export function GradeCalculator() {
     const s1 = firstSemester
     for (const key of ['cp1', 'cp2', 'sprint1', 'sprint2', 'gs'] as const) {
       if (s1[key] && !validateGrade(s1[key])) {
-        errs[key] = 'Valor entre 0.0 e 10.0'
+        errs[key] = UI_MESSAGES.errorValidation
       }
     }
 
@@ -65,15 +81,14 @@ export function GradeCalculator() {
       const s2 = secondSemester
       for (const key of ['cp1', 'cp2', 'sprint1', 'sprint2', 'gs'] as const) {
         if (s2[key] && !validateGrade(s2[key])) {
-          errs[`${key}_2`] = 'Valor entre 0.0 e 10.0'
+          errs[`${key}_2`] = UI_MESSAGES.errorValidation
         }
       }
     }
 
     if (targetGrade) {
-      const t = Number(targetGrade)
-      if (isNaN(t) || t < 0.01 || t > 10.0) {
-        errs.target = 'Valor entre 0.0 e 10.0'
+      if (!validateGrade(targetGrade)) {
+        errs.target = UI_MESSAGES.errorValidation
       }
     }
 
@@ -81,9 +96,20 @@ export function GradeCalculator() {
     return Object.keys(errs).length === 0
   }
 
-  function toNumberOrUndefined(val: string): number | undefined {
-    return val ? Number(val) : undefined
+  function toNumberOrUndefined(value: string): number | undefined {
+  if (!value || value.trim() === '') {
+    return undefined
   }
+
+  const normalized = value.replace(/,/g, '.')
+  const number = Number(normalized)
+
+  if (isNaN(number)) {
+    return undefined
+  }
+
+  return number
+}
 
   function handleCalculate() {
     if (!validate()) return
@@ -121,24 +147,6 @@ export function GradeCalculator() {
     setErrors({})
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value
-
-    let filtered = raw.replace(/[^0-9.]/g, '')
-
-    if (filtered.startsWith('.')) {
-      filtered = filtered.slice(1)
-    }
-
-    if (filtered.includes('.')) {
-      filtered = filtered.slice(0, 3)
-    } else {
-      filtered = filtered.slice(0, 2)
-    }
-
-    setTargetGrade(filtered)
-  }
-
   if (result) {
     return (
       <Card className="border-t-4 border-t-primary shadow-lg bg-neutral-900">
@@ -157,7 +165,7 @@ export function GradeCalculator() {
         <CardContent>
           <GradeResult
             result={result}
-            targetGrade={Number(targetGrade) || 6.0}
+            targetGrade={toNumberOrUndefined(targetGrade) || 6.0}
             onReset={handleReset}
           />
         </CardContent>
@@ -226,13 +234,13 @@ export function GradeCalculator() {
           </Label>
           <Input
             id="target"
-            type="number"
+            type="text"
             min={0.01}
             max={10}
             step={0.1}
             value={targetGrade}
-            onChange={(e) => handleChange(e)}
-            placeholder="6.0 (padrão FIAP)"
+            onChange={(e) => handleChange(e, setTargetGrade)}
+            placeholder="6.00 (padrão FIAP)"
             className={cn(
               'bg-neutral-800 border-neutral-700 text-white placeholder-neutral-500',
               '[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]',

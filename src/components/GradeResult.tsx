@@ -42,7 +42,7 @@ export function GradeResult({ result, targetGrade, onReset }: GradeResultProps) 
               >
                 {result.hasPassedTheGrade ? 'Aprovado!' : 'Não passou'}
               </p>
-              <p className="text-xs text-neutral-300">Média necessária: {targetGrade.toFixed(1)}</p>
+              <p className="text-xs text-neutral-300">Média necessária: {targetGrade.toFixed(2)}</p>
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@ export function GradeResult({ result, targetGrade, onReset }: GradeResultProps) 
               <p className="text-sm text-neutral-300">
                 Você precisa tirar{' '}
                 <strong className="text-white text-lg">{result.requiredGs.toFixed(2)}</strong> na GS
-                para atingir a média <strong>{targetGrade.toFixed(1)}</strong>.
+                para atingir a média <strong>{targetGrade.toFixed(2)}</strong>.
               </p>
             </div>
           </div>

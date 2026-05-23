@@ -14,6 +14,7 @@ export const UI_MESSAGES = {
   failed: 'Reprovado',
   insufficientAttendance: 'Faltas excedem o limite permitido.',
   missingGrades: 'Notas insuficientes para cálculo.',
+  errorValidation: 'Valor entre 0.0 e 10.0',
 }
 
 export default {
