@@ -141,7 +141,7 @@ export function AbsenceCalculator() {
             </p>
             <p className="text-sm text-neutral-300">
               Isso significa que você pode faltar{' '}
-              <strong>{calculateDays(result.missingAbsences).toFixed(1)}</strong> dia(s) sem
+              <strong>{Math.floor(calculateDays(result.missingAbsences))}</strong> dia(s) sem
               reprovar.
             </p>
           </div>
