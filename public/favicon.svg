@@ -1,9 +1,16 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
 <svg xmlns="http://www.w3.org/2000/svg" width="211px" height="211px" viewBox="-2.4 -2.4 28.80 28.80" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="rotate(0)matrix(1, 0, 0, 1, 0, 0)">
-<g id="SVGRepo_bgCarrier" stroke-width="0" transform="translate(0,0), scale(1)">
-<rect x="-2.4" y="-2.4" width="28.80" height="28.80" rx="5.472" fill="#f35b6d" strokewidth="0"/>
-</g>
-<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.288"/>
-<g id="SVGRepo_iconCarrier"> <path d="M22 10v6M2 10l10-5 10 5-10 5z"/> <path d="M6 12v5c3 3 9 3 12 0v-5"/> </g>
-</svg>
+
+<g id="SVGRepo_bgCarrier" stroke-width="0" transform="translate(0,0), scale(1)">
+
+<rect x="-2.4" y="-2.4" width="28.80" height="28.80" rx="5.472" fill="#f80063" strokewidth="0"/>
+
+</g>
+
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.288"/>
+
+<g id="SVGRepo_iconCarrier"> <path d="M22 10v6M2 10l10-5 10 5-10 5z"/> <path d="M6 12v5c3 3 9 3 12 0v-5"/> </g>
+
+</svg>
