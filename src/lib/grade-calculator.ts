@@ -62,7 +62,7 @@ export function calculateSemesterGrade(data: Semester, target: number): GradeRes
 
   return {
     average: rounded,
-    hasPassedTheGrade: rounded >= target,
+    hasPassedTheGrade: rounded >= FIAP_AVERAGE,
     requiredGs,
   }
 }
@@ -97,7 +97,7 @@ export function calculateYearGrade(data: GradeRequest, target: number): GradeRes
 
   return {
     average: rounded,
-    hasPassedTheGrade: rounded >= target,
+    hasPassedTheGrade: rounded >= FIAP_AVERAGE,
     requiredGs,
   }
 }

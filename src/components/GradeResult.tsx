@@ -71,7 +71,7 @@ export function GradeResult({ result, targetGrade, onReset }: GradeResultProps) 
                 </span>
               </div>
               <p className="text-sm text-neutral-300">
-                Você precisa tirar{' '}
+               { `Você ${Number(result.requiredGs.toFixed(2)) > 10 ? 'precisaria' : 'precisa'} tirar${' '}`}
                 <strong className="text-white text-lg">{result.requiredGs.toFixed(2)}</strong> na GS
                 para atingir a média <strong>{targetGrade.toFixed(2)}</strong>.
               </p>

@@ -1,46 +1,32 @@
-import { calculateAbsence } from '@/lib/grade-calculator'
-import { useState, useCallback } from 'react'
+import {  ChangeEvent, SetStateAction } from 'react'
 
 interface UseAbsenceCalculatorReturn {
-  absences: number
-  classes: number
-  setAbsences: (value: number) => void
-  setClasses: (value: number) => void
-  reset: () => void
-  missingAbsences: number
-  isOk: boolean
+  handleAbsencesChange: (e: ChangeEvent<HTMLInputElement>) => void
+  calculateDays: (missingAbsences: number) => number
 }
 
-export function useAbsenceCalculator(): UseAbsenceCalculatorReturn {
-  const [absences, setAbsencesState] = useState<number>(0)
-  const [classes, setClassesState] = useState<number>(0)
+type useAbsenceCalculatorRequest = {
+  setAbsences: (value: SetStateAction<string>) => void
+  classes: string
+}
 
-  const setAbsences = useCallback((value: number) => {
-    if (value >= 0) {
-      setAbsencesState(value)
-    }
-  }, [])
+export function useAbsenceCalculator({
+  setAbsences,
+  classes,
+}: useAbsenceCalculatorRequest): UseAbsenceCalculatorReturn {
+const handleAbsencesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 3)
+    setAbsences(value)
+  }
 
-  const setClasses = useCallback((value: number) => {
-    if (value >= 0) {
-      setClassesState(value)
-    }
-  }, [])
-
-  const reset = useCallback(() => {
-    setAbsencesState(0)
-    setClassesState(0)
-  }, [])
-
-  const { missingAbsences, isOk } = calculateAbsence({ absences, classes })
+  const calculateDays = (missingAbsences: number): number => {
+    if (classes === '80') return missingAbsences / 2
+    if (classes === '160') return missingAbsences / 4
+    return 0
+  }
 
   return {
-    absences,
-    classes,
-    setAbsences,
-    setClasses,
-    reset,
-    missingAbsences,
-    isOk,
+    handleAbsencesChange,
+    calculateDays,
   }
 }

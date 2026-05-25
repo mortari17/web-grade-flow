@@ -50,17 +50,17 @@ export function GradeCalculator() {
   function validateGrade(val: string): boolean {
     const trimmed = val.trim()
 
-  const commaPattern = /^\d{1,2}(?:,\d{1,2})?$/
-  const dotPattern = /^\d{1,2}(?:\.\d{1,2})?$/
+    const commaPattern = /^\d{1,2}(?:,\d{1,2})?$/
+    const dotPattern = /^\d{1,2}(?:\.\d{1,2})?$/
 
-  let normalized: string
-  if (commaPattern.test(trimmed)) {
-    normalized = trimmed.replace(',', '.')
-  } else if (dotPattern.test(trimmed)) {
-    normalized = trimmed
-  } else {
-    return true
-  }
+    let normalized: string
+    if (commaPattern.test(trimmed)) {
+      normalized = trimmed.replace(',', '.')
+    } else if (dotPattern.test(trimmed)) {
+      normalized = trimmed
+    } else {
+      return true
+    }
 
   
     const num = Number(normalized)

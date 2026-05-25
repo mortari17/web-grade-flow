@@ -13,6 +13,7 @@ import {
 import { calculateAbsence } from '@/lib/grade-calculator'
 import { AlertCircle, CheckCircle2, CalendarCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useAbsenceCalculator } from '@/hooks/useAbsenceCalculator'
 
 export function AbsenceCalculator() {
   const [absences, setAbsences] = useState('')
@@ -20,10 +21,7 @@ export function AbsenceCalculator() {
   const [result, setResult] = useState<{ missingAbsences: number; isOk: boolean } | null>(null)
   const [errors, setErrors] = useState({ absences: '', classes: '' })
 
-  const handleAbsencesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 3)
-    setAbsences(value)
-  }
+  const {calculateDays, handleAbsencesChange} = useAbsenceCalculator({ setAbsences, classes })
 
   function validate(): boolean {
     const newErrors = { absences: '', classes: '' }
@@ -48,12 +46,6 @@ export function AbsenceCalculator() {
     setClasses('80')
     setResult(null)
     setErrors({ absences: '', classes: '' })
-  }
-
-  const calculateDays = (missingAbsences: number): number => {
-    if (classes === '80') return missingAbsences / 2
-    if (classes === '160') return missingAbsences / 4
-    return 0
   }
 
   return (
