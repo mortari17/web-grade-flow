@@ -88,11 +88,11 @@ export function calculateYearGrade(data: GradeRequest, target: number): GradeRes
 
     const cpsContribution = semesterCps * CPS_AND_SPRINTS_WEIGHT
 
-
-    const numerator = target - first.average * FIRST_SEMESTER_WEIGHT - cpsContribution * SECOND_SEMESTER_WEIGHT
+    const numerator =
+      target - first.average * FIRST_SEMESTER_WEIGHT - cpsContribution * SECOND_SEMESTER_WEIGHT
     const denominator = GS_WEIGHT * SECOND_SEMESTER_WEIGHT
 
-    requiredGs = (numerator / denominator)
+    requiredGs = numerator / denominator
   }
 
   return {

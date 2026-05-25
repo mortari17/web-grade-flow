@@ -21,7 +21,7 @@ export function AbsenceCalculator() {
   const [result, setResult] = useState<{ missingAbsences: number; isOk: boolean } | null>(null)
   const [errors, setErrors] = useState({ absences: '', classes: '' })
 
-  const {calculateDays, handleAbsencesChange} = useAbsenceCalculator({ setAbsences, classes })
+  const { calculateDays, handleAbsencesChange } = useAbsenceCalculator({ setAbsences, classes })
 
   function validate(): boolean {
     const newErrors = { absences: '', classes: '' }

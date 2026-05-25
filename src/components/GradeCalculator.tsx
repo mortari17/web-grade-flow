@@ -62,7 +62,6 @@ export function GradeCalculator() {
       return true
     }
 
-  
     const num = Number(normalized)
     return !isNaN(num) && num >= 0.01 && num <= 10.0
   }
@@ -97,19 +96,19 @@ export function GradeCalculator() {
   }
 
   function toNumberOrUndefined(value: string): number | undefined {
-  if (!value || value.trim() === '') {
-    return undefined
+    if (!value || value.trim() === '') {
+      return undefined
+    }
+
+    const normalized = value.replace(/,/g, '.')
+    const number = Number(normalized)
+
+    if (isNaN(number)) {
+      return undefined
+    }
+
+    return number
   }
-
-  const normalized = value.replace(/,/g, '.')
-  const number = Number(normalized)
-
-  if (isNaN(number)) {
-    return undefined
-  }
-
-  return number
-}
 
   function handleCalculate() {
     if (!validate()) return

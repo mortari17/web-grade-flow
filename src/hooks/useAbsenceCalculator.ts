@@ -1,4 +1,4 @@
-import {  ChangeEvent, SetStateAction } from 'react'
+import { ChangeEvent, SetStateAction } from 'react'
 
 interface UseAbsenceCalculatorReturn {
   handleAbsencesChange: (e: ChangeEvent<HTMLInputElement>) => void
@@ -14,7 +14,7 @@ export function useAbsenceCalculator({
   setAbsences,
   classes,
 }: useAbsenceCalculatorRequest): UseAbsenceCalculatorReturn {
-const handleAbsencesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAbsencesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 3)
     setAbsences(value)
   }
