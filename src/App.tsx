@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { AbsenceCalculator } from '@/components/AbsenceCalculator'
 import { GradeCalculator } from '@/components/GradeCalculator'
 import { GraduationCap, CalendarCheck } from 'lucide-react'
+import { Analytics } from "@vercel/analytics/react"
 
 export default function App() {
   return (
@@ -78,6 +79,8 @@ export default function App() {
           </p>
         </div>
       </footer>
+
+      <Analytics />
     </div>
   )
 }
