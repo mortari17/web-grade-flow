@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -16,9 +15,10 @@ import { calculateGrade } from '@/pages/fiap/utils/grade-calculator'
 import { GradeResponse } from '@/lib/types'
 import { GraduationCap } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { UI_MESSAGES } from '@/pages/fiap/utils/constants'
+import { FIAP_AVERAGE, UI_MESSAGES } from '@/pages/fiap/utils/constants'
 import { EnumPeriod } from '../types'
 import { handleChange, toNumberOrUndefined, validateGrade } from '../utils'
+import { ButtonComponent } from '@/components/Button'
 
 interface SemesterState {
   cp1: string
@@ -123,13 +123,13 @@ export function GradeCalculator() {
           </div>
           <CardTitle className="text-xl text-primary">Resultado do Cálculo</CardTitle>
           <CardDescription>
-            {period === 'semester' ? 'Cálculo por semestre' : 'Cálculo por ano'}
+            {period === EnumPeriod.SEMESTER ? 'Cálculo por semestre' : 'Cálculo por ano'}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <GradeResult
             result={result}
-            targetGrade={toNumberOrUndefined(targetGrade) || 6.0}
+            targetGrade={toNumberOrUndefined(targetGrade) || FIAP_AVERAGE}
             onReset={handleReset}
           />
         </CardContent>
@@ -217,19 +217,16 @@ export function GradeCalculator() {
         </div>
 
         <div className="flex gap-2">
-          <Button
-            onClick={handleCalculate}
-            className="flex-1 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25"
-          >
-            Calcular
-          </Button>
-          <Button
-            variant="outline"
-            onClick={handleReset}
-            className="border-black/20 dark:border-white/20 text-white bg-neutral-700"
-          >
-            Limpar
-          </Button>
+          <ButtonComponent
+                      label="Calcular"
+                      onClick={handleCalculate}
+                      className="flex-1 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25"
+                    />
+                    <ButtonComponent
+                      label="Limpar"
+                      onClick={handleReset}
+                      className="border-black/20 dark:border-white/20 text-white bg-neutral-700"
+                    />
         </div>
       </CardContent>
     </Card>
