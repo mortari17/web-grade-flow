@@ -8,13 +8,9 @@ export const SECOND_SEMESTER_WEIGHT = 0.5
 export const ZERO = 0
 
 export const UI_MESSAGES = {
-  gradeCalculation: 'Cálculo da Nota',
-  average: 'Média Final',
-  approved: 'Aprovado!',
-  failed: 'Reprovado',
-  insufficientAttendance: 'Faltas excedem o limite permitido.',
-  missingGrades: 'Notas insuficientes para cálculo.',
-  errorValidation: 'Valor entre 0.0 e 10.0',
+  errorValidationGrades: 'Valor deve estar entre 0.0 e 10.0',
+  errorValidationAbsences: 'Digite um número inteiro maior do que 0',
+  errorValidationClasses: 'Selecione um valor válido',
 }
 
 export default {

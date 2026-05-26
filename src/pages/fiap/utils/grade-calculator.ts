@@ -1,14 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Semester, GradeRequest, GradeResponse, AbsenceRequest, AbsenceResponse } from './types'
-
-const MAX_MISSING_PR = 0.25
-const CPS_AND_SPRINTS_WEIGHT = 0.4
-const GS_WEIGHT = 0.6
-const NUMBER_OF_SEMESTER_GRADES = 4
-const FIRST_SEMESTER_WEIGHT = 0.4
-const SECOND_SEMESTER_WEIGHT = 0.6
-const FIAP_AVERAGE = 6.0
-const ZERO = 0
+import {
+  Semester,
+  GradeRequest,
+  GradeResponse,
+  AbsenceRequest,
+  AbsenceResponse,
+} from '../../../lib/types'
+import { EnumPeriod } from '../types'
+import {
+  MAX_MISSING_PR,
+  ZERO,
+  NUMBER_OF_SEMESTER_GRADES,
+  CPS_AND_SPRINTS_WEIGHT,
+  GS_WEIGHT,
+  FIAP_AVERAGE,
+  FIRST_SEMESTER_WEIGHT,
+  SECOND_SEMESTER_WEIGHT,
+} from './constants'
 
 export function round2(value: number): number {
   return Math.round(value * 100) / 100
@@ -106,9 +114,11 @@ export function calculateGrade(data: GradeRequest): GradeResponse {
   const target = data.targetGrade ?? FIAP_AVERAGE
 
   switch (data.period) {
-    case 'semester':
+    case EnumPeriod.SEMESTER:
       return calculateSemesterGrade(data.firstSemester, target)
-    case 'year':
+    case EnumPeriod.YEAR:
       return calculateYearGrade(data, target)
+    default:
+      throw new Error('Invalid period')
   }
 }

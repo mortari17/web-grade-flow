@@ -12,12 +12,12 @@ import {
 } from '@/components/ui/select'
 import { SemesterGrades } from './SemesterGrade'
 import { GradeResult } from './GradeResult'
-import { calculateGrade } from '@/lib/grade-calculator'
+import { calculateGrade } from '@/pages/fiap/utils/grade-calculator'
 import { GradeResponse } from '@/lib/types'
 import { GraduationCap } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { handleChange } from '@/utils'
-import { UI_MESSAGES } from '@/utils/constants'
+import { UI_MESSAGES } from '@/pages/fiap/utils/constants'
 
 type Period = 'semester' | 'year'
 
@@ -72,7 +72,7 @@ export function GradeCalculator() {
     const s1 = firstSemester
     for (const key of ['cp1', 'cp2', 'sprint1', 'sprint2', 'gs'] as const) {
       if (s1[key] && !validateGrade(s1[key])) {
-        errs[key] = UI_MESSAGES.errorValidation
+        errs[key] = UI_MESSAGES.errorValidationGrades
       }
     }
 
@@ -80,14 +80,14 @@ export function GradeCalculator() {
       const s2 = secondSemester
       for (const key of ['cp1', 'cp2', 'sprint1', 'sprint2', 'gs'] as const) {
         if (s2[key] && !validateGrade(s2[key])) {
-          errs[`${key}_2`] = UI_MESSAGES.errorValidation
+          errs[`${key}_2`] = UI_MESSAGES.errorValidationGrades
         }
       }
     }
 
     if (targetGrade) {
       if (!validateGrade(targetGrade)) {
-        errs.target = UI_MESSAGES.errorValidation
+        errs.target = UI_MESSAGES.errorValidationGrades
       }
     }
 
