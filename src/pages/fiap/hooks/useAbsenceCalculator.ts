@@ -21,8 +21,8 @@ export function useAbsenceCalculator({
   }
 
   const calculateDays = (missingAbsences: number): number => {
-    if (classes === '80') return missingAbsences / 2
-    if (classes === '160') return missingAbsences / 4
+    if (classes === EnumClasses.CLASSES_80) return missingAbsences / 2
+    if (classes === EnumClasses.CLASSES_160) return missingAbsences / 4
     return 0
   }
 

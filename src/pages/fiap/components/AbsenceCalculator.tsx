@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -11,16 +10,19 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { calculateAbsence } from '@/pages/fiap/utils/grade-calculator'
-import { AlertCircle, CheckCircle2, CalendarCheck } from 'lucide-react'
+import { CalendarCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAbsenceCalculator } from '@/pages/fiap/hooks/useAbsenceCalculator'
 import { EnumClasses } from '../types'
 import { UI_MESSAGES } from '../utils/constants'
+import { ButtonComponent } from '@/components/Button'
+import { AbsenceResponse } from '@/lib/types'
+import { AbsenceResult } from './AbsenceResult'
 
 export function AbsenceCalculator() {
   const [absences, setAbsences] = useState('')
   const [classes, setClasses] = useState<EnumClasses | string>(EnumClasses.CLASSES_80)
-  const [result, setResult] = useState<{ missingAbsences: number; isOk: boolean } | null>(null)
+  const [result, setResult] = useState<AbsenceResponse | null>(null)
   const [errors, setErrors] = useState({ absences: '', classes: '' })
 
   const { calculateDays, handleAbsencesChange } = useAbsenceCalculator({ setAbsences, classes })
@@ -112,48 +114,19 @@ export function AbsenceCalculator() {
         </div>
 
         <div className="flex gap-2">
-          <Button
+          <ButtonComponent
+            label="Calcular"
             onClick={handleCalculate}
             className="flex-1 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25"
-          >
-            Calcular
-          </Button>
-          <Button
-            variant="outline"
+          />
+          <ButtonComponent
+            label="Limpar"
             onClick={handleReset}
             className="border-black/20 dark:border-white/20 text-white bg-neutral-700"
-          >
-            Limpar
-          </Button>
+          />
         </div>
 
-        {result && (
-          <div
-            className={cn(
-              'rounded-lg border p-4 space-y-2 bg-neutral-700',
-              result.isOk ? 'border-neutral-600' : 'border-neutral-600',
-            )}
-          >
-            <div className="flex items-center gap-2">
-              {result.isOk ? (
-                <CheckCircle2 className="h-5 w-5 text-green-400" />
-              ) : (
-                <AlertCircle className="h-5 w-5 text-red-400" />
-              )}
-              <span className={cn('font-medium', result.isOk ? 'text-green-400' : 'text-red-400')}>
-                {result.isOk ? 'Dentro do limite' : 'Limite excedido'}
-              </span>
-            </div>
-            <p className="text-sm text-neutral-300">
-              Você ainda pode faltar em <strong>{result.missingAbsences}</strong> aula(s).
-            </p>
-            <p className="text-sm text-neutral-300">
-              Isso significa que você pode faltar{' '}
-              <strong>{Math.floor(calculateDays(result.missingAbsences))}</strong> dia(s) sem
-              reprovar.
-            </p>
-          </div>
-        )}
+        {result && <AbsenceResult result={result} calculateDays={calculateDays} />}
       </CardContent>
     </Card>
   )

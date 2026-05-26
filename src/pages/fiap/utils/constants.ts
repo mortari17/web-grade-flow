@@ -11,16 +11,6 @@ export const UI_MESSAGES = {
   errorValidationGrades: 'Valor deve estar entre 0.0 e 10.0',
   errorValidationAbsences: 'Digite um número inteiro maior do que 0',
   errorValidationClasses: 'Selecione um valor válido',
-}
-
-export default {
-  MAX_MISSING_PR,
-  FIAP_AVERAGE,
-  NUMBER_OF_SEMESTER_GRADES,
-  CPS_AND_SPRINTS_WEIGHT,
-  GS_WEIGHT,
-  FIRST_SEMESTER_WEIGHT,
-  SECOND_SEMESTER_WEIGHT,
-  ZERO,
-  UI_MESSAGES,
+  limitAttended: 'Dentro do limite de faltas',
+  limitExceeded: 'Limite de faltas excedido',
 }
