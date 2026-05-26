@@ -16,10 +16,9 @@ import { calculateGrade } from '@/pages/fiap/utils/grade-calculator'
 import { GradeResponse } from '@/lib/types'
 import { GraduationCap } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { handleChange } from '@/utils'
 import { UI_MESSAGES } from '@/pages/fiap/utils/constants'
-
-type Period = 'semester' | 'year'
+import { EnumPeriod } from '../types'
+import { handleChange, toNumberOrUndefined, validateGrade } from '../utils'
 
 interface SemesterState {
   cp1: string
@@ -32,7 +31,7 @@ interface SemesterState {
 const emptySemester: SemesterState = { cp1: '', cp2: '', sprint1: '', sprint2: '', gs: '' }
 
 export function GradeCalculator() {
-  const [period, setPeriod] = useState<Period>('semester')
+  const [period, setPeriod] = useState<EnumPeriod>(EnumPeriod.SEMESTER)
   const [firstSemester, setFirstSemester] = useState<SemesterState>({ ...emptySemester })
   const [secondSemester, setSecondSemester] = useState<SemesterState>({ ...emptySemester })
   const [targetGrade, setTargetGrade] = useState('')
@@ -47,25 +46,6 @@ export function GradeCalculator() {
     setSecondSemester((prev) => ({ ...prev, [field]: value }))
   }
 
-  function validateGrade(val: string): boolean {
-    const trimmed = val.trim()
-
-    const commaPattern = /^\d{1,2}(?:,\d{1,2})?$/
-    const dotPattern = /^\d{1,2}(?:\.\d{1,2})?$/
-
-    let normalized: string
-    if (commaPattern.test(trimmed)) {
-      normalized = trimmed.replace(',', '.')
-    } else if (dotPattern.test(trimmed)) {
-      normalized = trimmed
-    } else {
-      return true
-    }
-
-    const num = Number(normalized)
-    return !isNaN(num) && num >= 0.01 && num <= 10.0
-  }
-
   function validate(): boolean {
     const errs: Record<string, string> = {}
 
@@ -76,7 +56,7 @@ export function GradeCalculator() {
       }
     }
 
-    if (period === 'year') {
+    if (period === EnumPeriod.YEAR) {
       const s2 = secondSemester
       for (const key of ['cp1', 'cp2', 'sprint1', 'sprint2', 'gs'] as const) {
         if (s2[key] && !validateGrade(s2[key])) {
@@ -95,21 +75,6 @@ export function GradeCalculator() {
     return Object.keys(errs).length === 0
   }
 
-  function toNumberOrUndefined(value: string): number | undefined {
-    if (!value || value.trim() === '') {
-      return undefined
-    }
-
-    const normalized = value.replace(/,/g, '.')
-    const number = Number(normalized)
-
-    if (isNaN(number)) {
-      return undefined
-    }
-
-    return number
-  }
-
   function handleCalculate() {
     if (!validate()) return
 
@@ -123,7 +88,7 @@ export function GradeCalculator() {
         gs: toNumberOrUndefined(firstSemester.gs),
       },
       secondSemester:
-        period === 'year'
+        period === EnumPeriod.YEAR
           ? {
               cp1: toNumberOrUndefined(secondSemester.cp1),
               cp2: toNumberOrUndefined(secondSemester.cp2),
@@ -189,15 +154,15 @@ export function GradeCalculator() {
           <Label>
             <div className="text-neutral-300">Período</div>
           </Label>
-          <Select value={period} onValueChange={(v: Period) => setPeriod(v)}>
+          <Select value={period} onValueChange={(v: EnumPeriod) => setPeriod(v)}>
             <SelectTrigger className="bg-neutral-800 border border-neutral-700 text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary">
               <SelectValue placeholder="Selecione o período" />
             </SelectTrigger>
             <SelectContent className="bg-neutral-800 border border-neutral-700 rounded-lg">
-              <SelectItem value="semester" className="text-white hover:bg-neutral-700">
+              <SelectItem value={EnumPeriod.SEMESTER} className="text-white hover:bg-neutral-700">
                 Semestre
               </SelectItem>
-              <SelectItem value="year" className="text-white hover:bg-neutral-700">
+              <SelectItem value={EnumPeriod.YEAR} className="text-white hover:bg-neutral-700">
                 Ano
               </SelectItem>
             </SelectContent>
@@ -210,17 +175,17 @@ export function GradeCalculator() {
           grades={firstSemester}
           onChange={handleFirstChange}
           errors={errors}
-          showGSDescription={period === 'semester'}
+          showGSDescription={period === EnumPeriod.SEMESTER}
         />
 
-        {period === 'year' && (
+        {period === EnumPeriod.YEAR && (
           <SemesterGrades
             prefix="s2"
             title="2º Semestre"
             grades={secondSemester}
             onChange={handleSecondChange}
             errors={errors}
-            showGSDescription={period === 'year'}
+            showGSDescription={period === EnumPeriod.YEAR}
           />
         )}
 
