@@ -10,14 +10,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { calculateAbsence } from '@/lib/grade-calculator'
+import { calculateAbsence } from '@/pages/fiap/utils/grade-calculator'
 import { AlertCircle, CheckCircle2, CalendarCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useAbsenceCalculator } from '@/hooks/useAbsenceCalculator'
+import { useAbsenceCalculator } from '@/pages/fiap/hooks/useAbsenceCalculator'
+import { EnumClasses } from '../types'
+import { UI_MESSAGES } from '../utils/constants'
 
 export function AbsenceCalculator() {
   const [absences, setAbsences] = useState('')
-  const [classes, setClasses] = useState('80')
+  const [classes, setClasses] = useState<EnumClasses | string>(EnumClasses.CLASSES_80)
   const [result, setResult] = useState<{ missingAbsences: number; isOk: boolean } | null>(null)
   const [errors, setErrors] = useState({ absences: '', classes: '' })
 
@@ -28,8 +30,8 @@ export function AbsenceCalculator() {
     const a = Number(absences)
     const c = Number(classes)
 
-    if (!absences || a < 0) newErrors.absences = 'Digite um número inteiro maior do que 0'
-    if (!classes || c <= 0) newErrors.classes = 'Selecione um valor válido'
+    if (!absences || a < 0) newErrors.absences = UI_MESSAGES.errorValidationAbsences
+    if (!classes || c <= 0) newErrors.classes = UI_MESSAGES.errorValidationClasses
 
     setErrors(newErrors)
     return !newErrors.absences && !newErrors.classes
@@ -43,7 +45,7 @@ export function AbsenceCalculator() {
 
   function handleReset() {
     setAbsences('')
-    setClasses('80')
+    setClasses(EnumClasses.CLASSES_80)
     setResult(null)
     setErrors({ absences: '', classes: '' })
   }
@@ -91,10 +93,16 @@ export function AbsenceCalculator() {
                 <SelectValue placeholder="Selecione" />
               </SelectTrigger>
               <SelectContent className="bg-neutral-800 border border-neutral-700 rounded-lg">
-                <SelectItem value="80" className="text-white hover:bg-neutral-600">
+                <SelectItem
+                  value={EnumClasses.CLASSES_80}
+                  className="text-white hover:bg-neutral-600"
+                >
                   80
                 </SelectItem>
-                <SelectItem value="160" className="text-white hover:bg-neutral-600">
+                <SelectItem
+                  value={EnumClasses.CLASSES_160}
+                  className="text-white hover:bg-neutral-600"
+                >
                   160
                 </SelectItem>
               </SelectContent>

@@ -1,4 +1,5 @@
 import { ChangeEvent, SetStateAction } from 'react'
+import { EnumClasses } from '../types'
 
 interface UseAbsenceCalculatorReturn {
   handleAbsencesChange: (e: ChangeEvent<HTMLInputElement>) => void
@@ -7,7 +8,7 @@ interface UseAbsenceCalculatorReturn {
 
 type useAbsenceCalculatorRequest = {
   setAbsences: (value: SetStateAction<string>) => void
-  classes: string
+  classes: EnumClasses | string
 }
 
 export function useAbsenceCalculator({
