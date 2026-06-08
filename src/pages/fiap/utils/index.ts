@@ -35,20 +35,17 @@ export function toNumberOrUndefined(value: string): number | undefined {
 }
 
 export function validateGrade(val: string): boolean {
-  const trimmed = val.trim()
+  const trimmed = val.trim();
+  if (!trimmed) return false;
 
-  const commaPattern = /^\d{1,2}(?:,\d{1,2})?$/
-  const dotPattern = /^\d{1,2}(?:\.\d{1,2})?$/
+  const pattern = /^\d{1,2}(?:[.,]\d{0,2})?$/;
 
-  let normalized: string
-  if (commaPattern.test(trimmed)) {
-    normalized = trimmed.replace(',', '.')
-  } else if (dotPattern.test(trimmed)) {
-    normalized = trimmed
-  } else {
-    return true
+  if (!pattern.test(trimmed)) {
+    return false;
   }
 
-  const num = Number(normalized)
-  return !isNaN(num) && num >= 0.01 && num <= 10.0
+  const normalized = trimmed.replace(',', '.');
+  const num = Number(normalized);
+
+  return !isNaN(num) && num >= 0.01 && num <= 10.0;
 }
