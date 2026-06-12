@@ -1,12 +1,22 @@
 import { GraduationCap } from 'lucide-react'
 import linkedinIcon from '../../public/linkedin.svg'
 
-export function Footer() {
+interface FooterProps {
+  bgClass?: string
+  borderClass?: string
+  iconColor?: string
+}
+
+export function Footer({
+  bgClass = 'bg-black',
+  borderClass = 'border-neutral-800',
+  iconColor = 'text-primary',
+}: FooterProps) {
   return (
-    <footer className="border-t border-neutral-800 bg-black text-gray-500">
+    <footer className={`border-t ${borderClass} ${bgClass} text-gray-500`}>
       <div className="container max-w-3xl mx-auto flex items-center justify-between py-6 px-4 sm:flex-row flex-col gap-4">
         <div className="flex items-center gap-2">
-          <GraduationCap className="h-4 w-4 text-primary mt-1" />
+          <GraduationCap className={`h-4 w-4 ${iconColor} mt-1`} />
           <span className="text-sm font-medium mt-1">GradeFlow</span>
         </div>
         <p className="text-xs text-gray-400 mt-1">
