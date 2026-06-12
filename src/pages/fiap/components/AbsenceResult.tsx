@@ -3,19 +3,9 @@ import { cn } from '@/lib/utils'
 import { AlertCircle, CheckCircle2 } from 'lucide-react'
 import { UI_MESSAGES } from '../utils/constants'
 
-type AbsenceResultProps = {
-  result: AbsenceResponse
-  calculateDays: (missingAbsences: number) => number
-}
-
-export function AbsenceResult({ result, calculateDays }: AbsenceResultProps) {
+export function AbsenceResult({ result }: { result: AbsenceResponse }) {
   return (
-    <div
-      className={cn(
-        'rounded-lg border p-4 space-y-2 bg-neutral-700',
-        result.isOk ? 'border-neutral-600' : 'border-neutral-600',
-      )}
-    >
+    <div className="rounded-lg border border-neutral-600 p-4 space-y-2 bg-neutral-700">
       <div className="flex items-center gap-2">
         {result.isOk ? (
           <CheckCircle2 className="h-5 w-5 text-green-400" />
@@ -27,11 +17,7 @@ export function AbsenceResult({ result, calculateDays }: AbsenceResultProps) {
         </span>
       </div>
       <p className="text-sm text-neutral-300">
-        Você ainda pode faltar em <strong>{result.missingAbsences}</strong> aula(s).
-      </p>
-      <p className="text-sm text-neutral-300">
-        Isso significa que você pode faltar{' '}
-        <strong>{Math.floor(calculateDays(result.missingAbsences))}</strong> dia(s) sem reprovar.
+        Você ainda pode faltar em <strong>{result.missingAbsences}</strong> aula(s) sem reprovar.
       </p>
     </div>
   )

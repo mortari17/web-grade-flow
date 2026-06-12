@@ -33,17 +33,3 @@ export interface CalculateGradeRes {
   currentGrade?: number
 }
 
-export enum EnumClasses {
-  CLASSES_80 = '80',
-  CLASSES_160 = '160',
-}
-
-export interface CalculateAbsenceReq {
-  absences: EnumClasses
-  classes: number
-}
-
-export interface CalculateAbsenceRes {
-  missingAbsences: number
-  isOk: boolean
-}

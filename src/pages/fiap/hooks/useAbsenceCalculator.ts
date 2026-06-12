@@ -1,33 +1,26 @@
 import { ChangeEvent, SetStateAction } from 'react'
-import { EnumClasses } from '../types'
 
 interface UseAbsenceCalculatorReturn {
   handleAbsencesChange: (e: ChangeEvent<HTMLInputElement>) => void
-  calculateDays: (missingAbsences: number) => number
+  handleClassesChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-type useAbsenceCalculatorRequest = {
+type UseAbsenceCalculatorRequest = {
   setAbsences: (value: SetStateAction<string>) => void
-  classes: EnumClasses | string
+  setClasses: (value: SetStateAction<string>) => void
 }
 
 export function useAbsenceCalculator({
   setAbsences,
-  classes,
-}: useAbsenceCalculatorRequest): UseAbsenceCalculatorReturn {
-  const handleAbsencesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 3)
-    setAbsences(value)
+  setClasses,
+}: UseAbsenceCalculatorRequest): UseAbsenceCalculatorReturn {
+  const handleAbsencesChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAbsences(e.target.value.replace(/[^0-9]/g, '').slice(0, 4))
   }
 
-  const calculateDays = (missingAbsences: number): number => {
-    if (classes === EnumClasses.CLASSES_80) return missingAbsences / 2
-    if (classes === EnumClasses.CLASSES_160) return missingAbsences / 4
-    return 0
+  const handleClassesChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setClasses(e.target.value.replace(/[^0-9]/g, '').slice(0, 4))
   }
 
-  return {
-    handleAbsencesChange,
-    calculateDays,
-  }
+  return { handleAbsencesChange, handleClassesChange }
 }

@@ -170,7 +170,6 @@ export function GradeCalculator() {
         </div>
 
         <SemesterGrades
-          prefix="s1"
           title="1º Semestre"
           grades={firstSemester}
           onChange={handleFirstChange}
@@ -180,7 +179,6 @@ export function GradeCalculator() {
 
         {period === EnumPeriod.YEAR && (
           <SemesterGrades
-            prefix="s2"
             title="2º Semestre"
             grades={secondSemester}
             onChange={handleSecondChange}
@@ -204,7 +202,7 @@ export function GradeCalculator() {
             step={0.1}
             value={targetGrade}
             onChange={(e) => handleChange(e, setTargetGrade)}
-            placeholder="6.00 (padrão FIAP)"
+            placeholder="6,00 (padrão FIAP)"
             className={cn(
               'bg-neutral-800 border-neutral-700 text-white placeholder-neutral-500',
               '[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]',

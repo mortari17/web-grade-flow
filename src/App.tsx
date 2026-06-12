@@ -1,11 +1,16 @@
-import { Analytics } from '@vercel/analytics/react'
-import { FiapPage } from './pages/fiap'
+import "./App.css";
+import { RouterProvider } from "react-router-dom";
+import { publicRouter } from "./router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-export default function App() {
-  return (
-    <>
-      <FiapPage />
-      <Analytics />
-    </>
-  )
+function App() {
+	const queryClient = new QueryClient();
+
+	return (
+		<QueryClientProvider client={queryClient}>
+				<RouterProvider router={publicRouter} />
+		</QueryClientProvider>
+	);
 }
+
+export default App;
