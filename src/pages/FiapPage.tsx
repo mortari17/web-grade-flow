@@ -15,7 +15,11 @@ const TABS: IconTabItem[] = [
     value: 'absences',
     icon: <CalendarCheck className="h-4 w-4" />,
     label: 'Faltas',
-    content: <AbsenceCalculator />,
+    content: (
+      <div className="mx-auto max-w-3xl">
+        <AbsenceCalculator />
+      </div>
+    ),
   },
 ]
 

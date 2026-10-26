@@ -3,7 +3,7 @@ import { GraduationCap } from 'lucide-react'
 export function Header() {
   return (
     <header className="border-b border-neutral-800 bg-black text-white">
-      <div className="container max-w-3xl mx-auto flex items-center gap-3 py-4 px-4">
+      <div className="container max-w-5xl mx-auto flex items-center gap-3 py-4 px-4">
         <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary">
           <GraduationCap className="h-6 w-6 text-black" />
         </div>

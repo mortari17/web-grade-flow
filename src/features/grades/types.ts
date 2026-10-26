@@ -32,3 +32,18 @@ export interface GradeResponse {
   hasPassedTheGrade: boolean
   requiredGs?: number
 }
+
+/** Tudo o que o usuário preencheu no formulário de notas. */
+export interface GradeFormValues {
+  period: EnumPeriod
+  firstSemester: SemesterForm
+  secondSemester: SemesterForm
+  targetGrade: string
+}
+
+export interface GradeHistoryEntry extends GradeFormValues {
+  id: string
+  createdAt: number
+  result: GradeResponse
+  effectiveTarget: number
+}

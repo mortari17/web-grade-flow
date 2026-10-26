@@ -11,6 +11,7 @@ import {
 import {
   EnumPeriod,
   type GradeFormErrors,
+  type GradeFormValues,
   type GradeResponse,
   type SemesterErrors,
   type SemesterForm,
@@ -36,7 +37,11 @@ function hasErrors(errors: GradeFormErrors): boolean {
   )
 }
 
-export function useGradeCalculator() {
+interface UseGradeCalculatorOptions {
+  onCalculated?: (values: GradeFormValues, result: GradeResponse, effectiveTarget: number) => void
+}
+
+export function useGradeCalculator({ onCalculated }: UseGradeCalculatorOptions = {}) {
   const [period, setPeriod] = useState<EnumPeriod>(EnumPeriod.SEMESTER)
   const [firstSemester, setFirstSemester] = useState<SemesterForm>(EMPTY_SEMESTER)
   const [secondSemester, setSecondSemester] = useState<SemesterForm>(EMPTY_SEMESTER)
@@ -45,6 +50,7 @@ export function useGradeCalculator() {
   const [errors, setErrors] = useState<GradeFormErrors>(EMPTY_ERRORS)
 
   const isYear = period === EnumPeriod.YEAR
+  const effectiveTarget = toNumberOrUndefined(targetGrade) || FIAP_AVERAGE
 
   function updateFirstSemester(changes: Partial<SemesterForm>) {
     setFirstSemester((prev) => ({ ...prev, ...changes }))
@@ -69,14 +75,29 @@ export function useGradeCalculator() {
   function calculate() {
     if (!validate()) return
 
-    setResult(
-      calculateGrade({
-        period,
-        firstSemester: parseSemester(firstSemester),
-        secondSemester: isYear ? parseSemester(secondSemester) : undefined,
-        targetGrade: toNumberOrUndefined(targetGrade),
-      }),
+    const newResult = calculateGrade({
+      period,
+      firstSemester: parseSemester(firstSemester),
+      secondSemester: isYear ? parseSemester(secondSemester) : undefined,
+      targetGrade: toNumberOrUndefined(targetGrade),
+    })
+
+    setResult(newResult)
+    onCalculated?.(
+      { period, firstSemester, secondSemester, targetGrade },
+      newResult,
+      effectiveTarget,
     )
+  }
+
+  /** Preenche o formulário com valores salvos (ex.: histórico) e volta para a edição. */
+  function load(values: GradeFormValues) {
+    setPeriod(values.period)
+    setFirstSemester({ ...EMPTY_SEMESTER, ...values.firstSemester })
+    setSecondSemester({ ...EMPTY_SEMESTER, ...values.secondSemester })
+    setTargetGrade(values.targetGrade)
+    setResult(null)
+    setErrors(EMPTY_ERRORS)
   }
 
   function reset() {
@@ -93,7 +114,7 @@ export function useGradeCalculator() {
     firstSemester,
     secondSemester,
     targetGrade,
-    effectiveTarget: toNumberOrUndefined(targetGrade) || FIAP_AVERAGE,
+    effectiveTarget,
     result,
     errors,
     setPeriod,
@@ -101,6 +122,7 @@ export function useGradeCalculator() {
     updateFirstSemester,
     updateSecondSemester,
     calculate,
+    load,
     reset,
   }
 }

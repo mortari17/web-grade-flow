@@ -9,7 +9,7 @@ const AUTHORS = [
 export function Footer() {
   return (
     <footer className="border-t border-neutral-800 bg-black text-gray-500">
-      <div className="container max-w-3xl mx-auto flex items-center justify-between py-6 px-4 sm:flex-row flex-col gap-4">
+      <div className="container max-w-5xl mx-auto flex items-center justify-between py-6 px-4 sm:flex-row flex-col gap-4">
         <div className="flex items-center gap-2">
           <GraduationCap className="h-4 w-4 text-primary mt-1" />
           <span className="text-sm font-medium mt-1">GradeFlow</span>

@@ -3,14 +3,38 @@ import { CalculatorCard } from '@/components/shared/CalculatorCard'
 import { FormActions } from '@/components/shared/FormActions'
 import { FormField } from '@/components/shared/FormField'
 import { SelectField } from '@/components/shared/SelectField'
+import { cn } from '@/lib/utils'
 import { PERIOD_OPTIONS } from '../constants'
 import { useGradeCalculator } from '../hooks/useGradeCalculator'
+import { useGradeHistory } from '../hooks/useGradeHistory'
+import { GradeHistory } from './GradeHistory'
 import { GradeInput } from './GradeInput'
 import { GradeResult } from './GradeResult'
 import { SemesterGrades } from './SemesterGrades'
 
 export function GradeCalculator() {
-  const calculator = useGradeCalculator()
+  const history = useGradeHistory()
+  const calculator = useGradeCalculator({ onCalculated: history.add })
+
+  return (
+    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start">
+      <GradeCalculatorCard calculator={calculator} />
+      <aside className={cn(history.entries.length === 0 && 'hidden lg:block')}>
+        <GradeHistory
+          entries={history.entries}
+          onSelect={calculator.load}
+          onClear={history.clear}
+        />
+      </aside>
+    </div>
+  )
+}
+
+function GradeCalculatorCard({
+  calculator,
+}: {
+  calculator: ReturnType<typeof useGradeCalculator>
+}) {
   const { result, isYear, errors } = calculator
 
   if (result) {
