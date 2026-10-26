@@ -2,7 +2,7 @@ import type { SelectOption } from '@/components/shared/SelectField'
 import { ZERO_GRADE } from './lib/grade-input'
 import { EnumPeriod, type GradeField, type SemesterForm } from './types'
 
-/** CPs e Sprints começam em 0,00; GS começa vazia para que o cálculo da GS necessária funcione. */
+// GS começa vazia: é o que dispara o cálculo da GS necessária.
 export const EMPTY_SEMESTER: SemesterForm = {
   cp1: ZERO_GRADE,
   cp2: ZERO_GRADE,

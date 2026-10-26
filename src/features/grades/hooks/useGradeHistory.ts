@@ -24,7 +24,6 @@ function sameValues(a: GradeFormValues, b: GradeFormValues): boolean {
   )
 }
 
-/** Últimos cálculos de nota, salvos no navegador do usuário. Mais recente primeiro. */
 export function useGradeHistory() {
   const [entries, setEntries] = useLocalStorage<GradeHistoryEntry[]>(STORAGE_KEY, [], parseHistory)
 
@@ -36,7 +35,6 @@ export function useGradeHistory() {
       result,
       effectiveTarget,
     }
-    // Recalcular os mesmos valores só move o cálculo para o topo.
     setEntries((prev) =>
       [entry, ...prev.filter((e) => !sameValues(e, values))].slice(0, MAX_ENTRIES),
     )

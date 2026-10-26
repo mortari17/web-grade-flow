@@ -1,4 +1,3 @@
-// Regras do modelo de avaliação FIAP
 export const FIAP_AVERAGE = 6.0
 export const MAX_ABSENCE_RATE = 0.25
 

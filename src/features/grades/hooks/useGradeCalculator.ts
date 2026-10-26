@@ -90,7 +90,6 @@ export function useGradeCalculator({ onCalculated }: UseGradeCalculatorOptions =
     )
   }
 
-  /** Preenche o formulário com valores salvos (ex.: histórico) e volta para a edição. */
   function load(values: GradeFormValues) {
     setPeriod(values.period)
     setFirstSemester({ ...EMPTY_SEMESTER, ...values.firstSemester })

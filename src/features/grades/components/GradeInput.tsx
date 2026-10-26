@@ -13,7 +13,6 @@ interface GradeInputProps {
   description?: ReactNode
   descriptionClassName?: string
   optional?: boolean
-  /** Permite deixar o campo vazio (ex.: GS ainda não realizada). */
   allowEmpty?: boolean
 }
 

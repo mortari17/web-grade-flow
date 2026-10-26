@@ -13,10 +13,6 @@ export function round2(value: number): number {
   return Math.round(value * 100) / 100
 }
 
-/**
- * Contribuição de CPs e Sprints para a média do semestre. Usa `average` quando informada;
- * caso contrário, calcula a média das notas parciais (ausentes contam como zero).
- */
 function partialGradesContribution(s: Semester): number {
   const average =
     s.average ??

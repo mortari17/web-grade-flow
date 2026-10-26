@@ -9,10 +9,6 @@ function readStorage<T>(key: string, fallback: T, parse: (raw: unknown) => T): T
   }
 }
 
-/**
- * Estado persistido no localStorage do navegador. `parse` valida o valor lido
- * (dados antigos ou corrompidos caem no `fallback`). Falhas de acesso são ignoradas.
- */
 export function useLocalStorage<T>(key: string, fallback: T, parse: (raw: unknown) => T) {
   const [value, setValue] = useState<T>(() => readStorage(key, fallback, parse))
 
@@ -20,7 +16,7 @@ export function useLocalStorage<T>(key: string, fallback: T, parse: (raw: unknow
     try {
       window.localStorage.setItem(key, JSON.stringify(value))
     } catch {
-      // Storage indisponível (modo privado, cota cheia): mantém só em memória.
+      // Storage indisponível (modo privado, cota cheia): segue só em memória.
     }
   }, [key, value])
 

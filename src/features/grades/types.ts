@@ -7,10 +7,8 @@ export const PARTIAL_GRADE_FIELDS = ['cp1', 'cp2', 'sprint1', 'sprint2'] as cons
 export const GRADE_FIELDS = [...PARTIAL_GRADE_FIELDS, 'average', 'gs'] as const
 export type GradeField = (typeof GRADE_FIELDS)[number]
 
-/** `average`, quando informado, substitui a média de CPs e Sprints. */
 export type Semester = Partial<Record<GradeField, number>>
 
-/** Valores digitados no formulário (string para permitir campos vazios e vírgula). */
 export type SemesterForm = Record<GradeField, string> & { useAverage: boolean }
 export type SemesterErrors = Partial<Record<GradeField, string>>
 
@@ -33,7 +31,6 @@ export interface GradeResponse {
   requiredGs?: number
 }
 
-/** Tudo o que o usuário preencheu no formulário de notas. */
 export interface GradeFormValues {
   period: EnumPeriod
   firstSemester: SemesterForm

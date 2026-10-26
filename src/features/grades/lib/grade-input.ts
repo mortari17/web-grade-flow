@@ -7,11 +7,7 @@ export function formatGrade(cents: number): string {
   return (cents / 100).toFixed(2).replace('.', ',')
 }
 
-/**
- * Máscara de nota estilo "centavos": cada dígito entra pela direita
- * (1 → 0,01, 10 → 0,10, 100 → 1,00). Valores acima de 10,00 são ignorados.
- * Com `allowEmpty`, apagar até zerar deixa o campo vazio.
- */
+// Dígitos entram pela direita: 1 → 0,01, 10 → 0,10, 100 → 1,00. Acima de 10,00 é ignorado.
 export function maskGradeInput(raw: string, previous: string, allowEmpty = false): string {
   const cents = Number(raw.replace(/\D/g, '') || '0')
 
@@ -42,7 +38,6 @@ export function validateGrade(value: string): boolean {
   return !isNaN(num) && num >= 0 && num <= 10.0
 }
 
-/** Campos que o usuário está preenchendo: a média direta ou as notas parciais, e a GS. */
 export function activeGradeFields(form: SemesterForm): GradeField[] {
   return form.useAverage ? ['average', 'gs'] : [...PARTIAL_GRADE_FIELDS, 'gs']
 }

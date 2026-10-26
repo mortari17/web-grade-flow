@@ -1,7 +1,6 @@
 import type { SelectOption } from '@/components/shared/SelectField'
 import { EnumClasses } from './types'
 
-/** Quantidade de aulas por dia letivo, de acordo com a carga horária total. */
 export const CLASSES_PER_DAY: Record<number, number> = {
   80: 2,
   160: 4,
