@@ -75,9 +75,10 @@ export function GradeCalculator() {
         optional
         value={calculator.targetGrade}
         onChange={calculator.setTargetGrade}
-        placeholder="6.00 (padrão FIAP)"
+        placeholder="6,00 (padrão FIAP)"
+        allowEmpty
         error={errors.targetGrade}
-        description="Deixe em branco para usar a média mínima FIAP (6.0), ou informe uma nota específica"
+        description="Deixe em branco para usar a média mínima FIAP (6,00), ou informe uma nota específica"
       />
 
       <FormActions onSubmit={calculator.calculate} onReset={calculator.reset} />

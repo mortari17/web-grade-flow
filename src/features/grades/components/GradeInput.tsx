@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { FormField } from '@/components/shared/FormField'
 import { FormInput } from '@/components/shared/FormInput'
-import { sanitizeGradeInput } from '../lib/grade-input'
+import { maskGradeInput } from '../lib/grade-input'
 
 interface GradeInputProps {
   id: string
@@ -13,6 +13,8 @@ interface GradeInputProps {
   description?: ReactNode
   descriptionClassName?: string
   optional?: boolean
+  /** Permite deixar o campo vazio (ex.: GS ainda não realizada). */
+  allowEmpty?: boolean
 }
 
 export function GradeInput({
@@ -20,11 +22,12 @@ export function GradeInput({
   label,
   value,
   onChange,
-  placeholder = '0.00 - 10',
+  placeholder = '0,00 - 10',
   error,
   description,
   descriptionClassName,
   optional,
+  allowEmpty,
 }: GradeInputProps) {
   return (
     <FormField
@@ -39,7 +42,7 @@ export function GradeInput({
         id={id}
         inputMode="decimal"
         value={value}
-        onChange={(e) => onChange(sanitizeGradeInput(e.target.value))}
+        onChange={(e) => onChange(maskGradeInput(e.target.value, value, allowEmpty))}
         placeholder={placeholder}
         invalid={Boolean(error)}
       />

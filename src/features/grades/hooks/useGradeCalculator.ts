@@ -2,11 +2,14 @@ import { useState } from 'react'
 import { FIAP_AVERAGE } from '@/config/fiap'
 import { EMPTY_SEMESTER, GRADE_MESSAGES } from '../constants'
 import { calculateGrade } from '../lib/calculate-grade'
-import { parseSemester, toNumberOrUndefined, validateGrade } from '../lib/grade-input'
+import {
+  activeGradeFields,
+  parseSemester,
+  toNumberOrUndefined,
+  validateGrade,
+} from '../lib/grade-input'
 import {
   EnumPeriod,
-  GRADE_FIELDS,
-  type GradeField,
   type GradeFormErrors,
   type GradeResponse,
   type SemesterErrors,
@@ -17,7 +20,7 @@ const EMPTY_ERRORS: GradeFormErrors = { firstSemester: {}, secondSemester: {} }
 
 function validateSemester(form: SemesterForm): SemesterErrors {
   const errors: SemesterErrors = {}
-  for (const field of GRADE_FIELDS) {
+  for (const field of activeGradeFields(form)) {
     if (form[field] && !validateGrade(form[field])) {
       errors[field] = GRADE_MESSAGES.invalidGrade
     }
@@ -43,12 +46,12 @@ export function useGradeCalculator() {
 
   const isYear = period === EnumPeriod.YEAR
 
-  function updateFirstSemester(field: GradeField, value: string) {
-    setFirstSemester((prev) => ({ ...prev, [field]: value }))
+  function updateFirstSemester(changes: Partial<SemesterForm>) {
+    setFirstSemester((prev) => ({ ...prev, ...changes }))
   }
 
-  function updateSecondSemester(field: GradeField, value: string) {
-    setSecondSemester((prev) => ({ ...prev, [field]: value }))
+  function updateSecondSemester(changes: Partial<SemesterForm>) {
+    setSecondSemester((prev) => ({ ...prev, ...changes }))
   }
 
   function validate(): boolean {
