@@ -1,73 +1,41 @@
-# React + TypeScript + Vite
+# GradeFlow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Calculadora de notas e faltas seguindo o modelo de avaliação FIAP.
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm dev        # servidor de desenvolvimento
+pnpm build      # typecheck + build de produção
+pnpm lint       # ESLint
+pnpm format     # Prettier
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Estrutura
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── assets/              # arquivos importados pelo código (ícones, imagens)
+├── components/
+│   ├── ui/              # primitivos shadcn/ui (não editar regras de negócio aqui)
+│   ├── shared/          # componentes reutilizáveis entre features (cards, campos, tabs)
+│   └── layout/          # estrutura da página (Header, Footer, PageLayout)
+├── config/              # regras e constantes de negócio globais (pesos, média FIAP)
+├── features/
+│   ├── grades/          # calculadora de notas
+│   └── absences/        # calculadora de faltas
+│       ├── components/  # UI da feature
+│       ├── hooks/       # estado e orquestração do formulário
+│       ├── lib/         # funções puras (cálculo, parse, validação)
+│       ├── constants.ts
+│       ├── types.ts
+│       └── index.ts     # API pública da feature
+├── lib/                 # utilitários genéricos (cn)
+└── pages/               # composição das features em páginas
+```
+
+Regras:
+
+- `features/*` não importam umas das outras; o que for comum vai para `components/shared`, `config` ou `lib`.
+- Cálculos ficam em `lib/` como funções puras, sem React; componentes só renderizam o estado exposto pelo hook.
+- Páginas importam features pelo `index.ts` (`@/features/grades`).
